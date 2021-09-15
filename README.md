@@ -1,2 +1,4 @@
 # Sample Task API
-Sample dotnet project that exposes an api to return task details
+This repository has been created to assist developer recruitment for C3 Post Trade
+
+
