@@ -12,16 +12,17 @@ You have been tasked with creating a dotnet web api to return tasks for an exter
 },
 ```
 
-# Business Requirements
+## Business Requirements
 The business has defined the below requirements for the service:
 
 1. As a user, I need to be able to create a task with a given description so that I can manage my tasks
 2. As a user, I need to be able to mark a task as completed so that I know when a task is done 
 3. As a user, I need to be able to retrieve tasks by owner so that I can view tasks that I need to action
 
-# Technical Requirements
+## Technical Requirements
 
 1. Storage
-    - Each Task will need to be able to be persisited to a data store. Your architecture team have not yet decided on the underlying storage so the requirement is to store the data in mock data store with the ability to switch this out easily when required.
+    - Each Task will need to be able to be persisited to a data store
+    - Architecture have not yet decided on the underlying storage so data will need to be stored in a mock data store with the ability to switch this out easily when required.
 2. Authentication
     - There are no requirements for authentication of the api endpoints
