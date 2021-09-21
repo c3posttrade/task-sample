@@ -1,5 +1,5 @@
 # Sample Task API
-This repository has been created to assist developer recruitment for C3 Post Trade
+This repository has been created to assist developer recruitment for C3 Post Trade.
 
 # Overview
 You have been tasked with creating a dotnet web api to return tasks for an external web app to consume. You have full reign over how this project will structured, but it is expected that your approach will follow your own best practice guidelines. 
