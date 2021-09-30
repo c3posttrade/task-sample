@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 
-namespace TaskSample.API.Controllers
+namespace TaskSample.Api.Controllers
 {
     public abstract class ControllerApiBase: ControllerBase
     {

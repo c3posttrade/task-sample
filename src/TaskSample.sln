@@ -11,23 +11,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1F9EF648-19D1-4938-B6E3-789CC20FEE5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.API", "TaskSample.API\TaskSample.API.csproj", "{CF327F14-99DF-4149-9782-C8C11896B8F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Api", "TaskSample.API\TaskSample.Api.csproj", "{CF327F14-99DF-4149-9782-C8C11896B8F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.Domain", "TaskSample.Domain\TaskSample.Domain.csproj", "{795E3A28-4D7E-466C-A1DA-668ECBAAE47D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Domain", "TaskSample.Domain\TaskSample.Domain.csproj", "{795E3A28-4D7E-466C-A1DA-668ECBAAE47D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.Services", "TaskSample.Services\TaskSample.Services.csproj", "{06F35118-C024-46F4-8F82-3BF0FD63C167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Services", "TaskSample.Services\TaskSample.Services.csproj", "{06F35118-C024-46F4-8F82-3BF0FD63C167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.Infrastructure.Persistence.EF", "TaskSample.Infrastructure.Persistence.EF\TaskSample.Infrastructure.Persistence.EF.csproj", "{4D76E89D-869E-4D75-8AC0-F6465DAC4E7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Infrastructure.Persistence.EF", "TaskSample.Infrastructure.Persistence.EF\TaskSample.Infrastructure.Persistence.EF.csproj", "{4D76E89D-869E-4D75-8AC0-F6465DAC4E7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.Infrastructure.Services", "TaskSample.Infrastructure.Services\TaskSample.Infrastructure.Services.csproj", "{44A85A0A-D0E0-4532-B8DE-008C5DB79D4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Infrastructure.Services", "TaskSample.Infrastructure.Services\TaskSample.Infrastructure.Services.csproj", "{44A85A0A-D0E0-4532-B8DE-008C5DB79D4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.Infrastructure.DI.Bootstrapper", "TaskSample.Infrastructure.DI.Bootstrapper\TaskSample.Infrastructure.DI.Bootstrapper.csproj", "{7CBF5C6A-7622-45DE-B093-3320B488A15E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Infrastructure.DI.Bootstrapper", "TaskSample.Infrastructure.DI.Bootstrapper\TaskSample.Infrastructure.DI.Bootstrapper.csproj", "{7CBF5C6A-7622-45DE-B093-3320B488A15E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.Shared", "TaskSample.Shared\TaskSample.Shared.csproj", "{A9F02FA8-FA03-4A97-A72F-39EA82B76F56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Shared", "TaskSample.Shared\TaskSample.Shared.csproj", "{A9F02FA8-FA03-4A97-A72F-39EA82B76F56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.API.Tests", "TaskSample.API.Tests\TaskSample.API.Tests.csproj", "{A10ECD48-045E-4C80-8130-6C4C777E4895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Api.Tests", "TaskSample.API.Tests\TaskSample.Api.Tests.csproj", "{A10ECD48-045E-4C80-8130-6C4C777E4895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskSample.Services.Tests", "TaskSample.Services.Tests\TaskSample.Services.Tests.csproj", "{CAEED105-3208-4661-B3DF-08B9D5757063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskSample.Infrastructure.Services.Tests", "TaskSample.Services.Tests\TaskSample.Infrastructure.Services.Tests.csproj", "{CAEED105-3208-4661-B3DF-08B9D5757063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

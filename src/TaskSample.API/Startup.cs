@@ -4,8 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using TaskSample.Api.Extensions;
+using TaskSample.Api.Middlewares;
 
-namespace TaskSample.API
+namespace TaskSample.Api
 {
     public class Startup
     {
@@ -19,8 +21,11 @@ namespace TaskSample.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ExceptionHandlingMiddleware>();
+            services.AddControllers()
+                .AddApiBehavior()
+                .AddApiValidation();
 
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TaskSample.API", Version = "v1" });
@@ -40,6 +45,8 @@ namespace TaskSample.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthorization();
 
