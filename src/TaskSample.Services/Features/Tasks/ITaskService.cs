@@ -8,10 +8,10 @@ namespace TaskSample.Services.Features.Tasks
 {
     public interface ITaskService
     {
-        Task<TaskDetailViewModel> CreateAsync(TaskCreateModel task, CancellationToken token = default);
+        Task<TaskDetailViewModel> CreateAsync(TaskCreateModel taskModel, CancellationToken token = default);
         Task<TaskDetailViewModel> GetByIdAsync(Guid taskId, CancellationToken token = default);
         Task MarkCompleteAsync(Guid taskId, CancellationToken token = default);
-        Task<PagedResult<TaskDetailViewModel>> GetByOwner(Guid ownerId, PagingModel paging, CancellationToken token = default);
-        Task<PagedResult<TaskDetailViewModel>> GetByStatus(bool isComplete, PagingModel paging, CancellationToken token = default);
+        Task<PagedResult<TaskDetailViewModel>> GetByOwnerAsync(Guid ownerId, PagingModel paging, CancellationToken token = default);
+        Task<PagedResult<TaskDetailViewModel>> GetByStatusAsync(bool isComplete, PagingModel paging, CancellationToken token = default);
     }
 }

@@ -4,4 +4,19 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="MappingProfiles\TaskProfile.cs~RF3dbb30b3.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskSample.Domain\TaskSample.Domain.csproj" />
+    <ProjectReference Include="..\TaskSample.Services\TaskSample.Services.csproj" />
+    <ProjectReference Include="..\TaskSample.Shared\TaskSample.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

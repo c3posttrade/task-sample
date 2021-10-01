@@ -45,7 +45,7 @@ namespace TaskSample.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PagedResult<TaskDetailViewModel>>> GetAsync(bool complete, PagingModel paging, CancellationToken cancellationToken = default)
         {
-            var tasks = await _taskService.GetByStatus(complete, paging, cancellationToken);
+            var tasks = await _taskService.GetByStatusAsync(complete, paging, cancellationToken);
             return Ok(tasks);
         }
 
@@ -54,7 +54,7 @@ namespace TaskSample.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PagedResult<TaskDetailViewModel>>> GetAsync(Guid ownerId, PagingModel paging, CancellationToken cancellationToken = default)
         {
-            var tasksByOwner = await _taskService.GetByOwner(ownerId, paging, cancellationToken);
+            var tasksByOwner = await _taskService.GetByOwnerAsync(ownerId, paging, cancellationToken);
             return Ok(tasksByOwner);
         }
 

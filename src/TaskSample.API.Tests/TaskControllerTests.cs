@@ -17,17 +17,18 @@ namespace TaskSample.API.Tests
     public class TestControllerTests
     {
 
-        TasksController _taskController;
+        TasksController _sut;
         Mock<ITaskService> _mockTaskService;
 
         [SetUp]
         public void Setup()
         {
             _mockTaskService = new Mock<ITaskService>();
-            _taskController = new TasksController(_mockTaskService.Object);
+            _sut = new TasksController(_mockTaskService.Object);
         }
 
-        [Test, AutoData]
+        [Test]
+        [AutoData]
         public async Task CreateAsync_WhenValidModelPassed_ReturnsCorrectResult(TaskDetailViewModel taskDetail, CancellationTokenSource tokenSource)
         {
             //Arrange
@@ -35,7 +36,7 @@ namespace TaskSample.API.Tests
             _mockTaskService.Setup(x => x.CreateAsync(It.IsAny<TaskCreateModel>(), tokenSource.Token)).ReturnsAsync(taskDetail);
 
             //Act
-            var result = await _taskController.CreateAsync(taskModel, tokenSource.Token);
+            var result = await _sut.CreateAsync(taskModel, tokenSource.Token);
 
             //Assert
             Assert.IsNotNull(result.Result);
@@ -47,7 +48,7 @@ namespace TaskSample.API.Tests
         }
 
         [Test]
-        public async Task GetAsync_WhenTaskNotFound_ReturnsNotFoundResult()
+        public async Task GetByIdAsync_WhenTaskNotFound_ReturnsNotFoundResult()
         {
             //Arrange
             TaskDetailViewModel task = null;
@@ -55,7 +56,7 @@ namespace TaskSample.API.Tests
             _mockTaskService.Setup(x => x.GetByIdAsync(It.IsAny<Guid>(), tokenSource.Token)).ReturnsAsync(task);
 
             //Act
-            var result = await _taskController.GetAsync(Guid.NewGuid(), tokenSource.Token);
+            var result = await _sut.GetAsync(Guid.NewGuid(), tokenSource.Token);
 
             //Assert
             Assert.IsNotNull(result.Result);
@@ -64,12 +65,13 @@ namespace TaskSample.API.Tests
             Assert.AreEqual(404, routeResult.StatusCode);
         }
 
-        [Test, AutoData]
+        [Test]
+        [AutoData]
         public async Task GetByIdAsync_WhenTaskFound_ReturnsCorrectResult(TaskDetailViewModel task, CancellationTokenSource tokenSource)
         {
             _mockTaskService.Setup(x => x.GetByIdAsync(It.IsAny<Guid>(), tokenSource.Token)).ReturnsAsync(task);
 
-            var result = await _taskController.GetAsync(Guid.NewGuid(), tokenSource.Token);
+            var result = await _sut.GetAsync(Guid.NewGuid(), tokenSource.Token);
 
             Assert.IsNotNull(result.Result);
             Assert.IsInstanceOf(typeof(OkObjectResult), result.Result);
@@ -78,14 +80,15 @@ namespace TaskSample.API.Tests
             Assert.IsInstanceOf(typeof(TaskDetailViewModel), routeResult.Value);
         }
 
-        [Test, AutoData]
+        [Test]
+        [AutoData]
         public async Task GetByStatusAsync_WhenHaveTasks_ReturnsCorrectPagedResult(CancellationTokenSource tokenSource)
         {
             var completedTasks = new Fixture().Build<TaskDetailViewModel>().With(x => x.Completed, true).CreateMany(15);
             var pageTaskList = new PagedResult<TaskDetailViewModel>(completedTasks, 15, 1, 10);
-            _mockTaskService.Setup(x => x.GetByStatus(It.IsAny<bool>(), It.IsAny<PagingModel>(), tokenSource.Token)).ReturnsAsync(pageTaskList);
+            _mockTaskService.Setup(x => x.GetByStatusAsync(It.IsAny<bool>(), It.IsAny<PagingModel>(), tokenSource.Token)).ReturnsAsync(pageTaskList);
 
-            var result = await _taskController.GetAsync(true, new PagingModel { Page = 1, PageSize = 10 }, tokenSource.Token);
+            var result = await _sut.GetAsync(true, new PagingModel { Page = 1, PageSize = 10 }, tokenSource.Token);
 
             Assert.IsNotNull(result.Result);
             var routeResult = result.Result as OkObjectResult;
@@ -97,14 +100,15 @@ namespace TaskSample.API.Tests
             Assert.AreEqual(pageTaskList.TotalPages, listResult.TotalPages);
         }
 
-        [Test, AutoData]
+        [Test]
+        [AutoData]
         public async Task GetByOwnersAsync_WhenHaveTasks_ReturnsCorrectPagedResult(Guid ownerId, CancellationTokenSource tokenSource)
         {
             var tasksByAnOwner = new Fixture().Build<TaskDetailViewModel>().With(x => x.OwnerId, ownerId).CreateMany(15);
             var pageTaskList = new PagedResult<TaskDetailViewModel>(tasksByAnOwner, 15, 1, 10);
-            _mockTaskService.Setup(x => x.GetByOwner(It.IsAny<Guid>(), It.IsAny<PagingModel>(), tokenSource.Token)).ReturnsAsync(pageTaskList);
+            _mockTaskService.Setup(x => x.GetByOwnerAsync(It.IsAny<Guid>(), It.IsAny<PagingModel>(), tokenSource.Token)).ReturnsAsync(pageTaskList);
 
-            var result = await _taskController.GetAsync(ownerId, new PagingModel { Page = 1, PageSize = 10 }, tokenSource.Token);
+            var result = await _sut.GetAsync(ownerId, new PagingModel { Page = 1, PageSize = 10 }, tokenSource.Token);
 
             Assert.IsNotNull(result.Result);
             Assert.IsInstanceOf(typeof(OkObjectResult), result.Result);
@@ -117,20 +121,22 @@ namespace TaskSample.API.Tests
             Assert.AreEqual(10, listResult.Data.Count(x => x.OwnerId == ownerId));
         }
 
-        [Test, AutoData]
+        [Test]
+        [AutoData]
         public async Task MarkTaskCompleteAsync_WhenTaskIdPassed_ReturnsNoContentResult(Guid taskId, CancellationTokenSource tokenSource)
         {
-            var result = await _taskController.MarkTaskCompleteAsync(taskId, tokenSource.Token);
+            var result = await _sut.MarkTaskCompleteAsync(taskId, tokenSource.Token);
 
             Assert.IsInstanceOf(typeof(NoContentResult), result);
         }
 
-        [Test, AutoData]
+        [Test]
+        [AutoData]
         public async Task MarkTaskCompleteAsync_WhenTaskIdNotPassed_ReturnsBadResult(CancellationTokenSource tokenSource)
         {
             var id = Guid.Empty;
 
-            var result = await _taskController.MarkTaskCompleteAsync(id, tokenSource.Token);
+            var result = await _sut.MarkTaskCompleteAsync(id, tokenSource.Token);
 
             Assert.IsInstanceOf(typeof(BadRequestResult), result);
         }

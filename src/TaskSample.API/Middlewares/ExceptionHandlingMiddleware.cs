@@ -32,7 +32,7 @@ namespace TaskSample.Api.Middlewares
                     await ErrorResponse(context, ex, HttpStatusCode.NotFound);
                 }
 
-                if (ex is ValidationException)
+                if (ex is ValidationException or ArgumentNullException)
                 {
                     await ErrorResponse(context, ex, HttpStatusCode.BadRequest);
                 }
