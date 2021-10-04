@@ -21,9 +21,9 @@ namespace TaskSample.Infrastructure.Services.Features
 
         public TaskService(IUnitOfWork unitOfWork, IDateTimeProvider dateTimeProvider, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
-            _dateTimeProvider = dateTimeProvider;
-            _mapper = mapper;
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         #region PrivateMethods

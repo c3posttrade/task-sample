@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoFixture.NUnit3" Version="4.17.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.10" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />
@@ -19,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskSample.Infrastructure.Services\TaskSample.Infrastructure.Services.csproj" />
+    <ProjectReference Include="..\TaskSample.Infrastructure.Persistence.EF\TaskSample.Infrastructure.Persistence.EF.csproj" />
   </ItemGroup>
 
 </Project>
