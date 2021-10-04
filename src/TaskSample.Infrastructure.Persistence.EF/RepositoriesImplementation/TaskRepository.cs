@@ -34,7 +34,7 @@ namespace TaskSample.Infrastructure.Persistence.EF.RepositoriesImplementation
 
         public async Task<DataResult<DemoTask>> GetByStatusAsync(bool isComplete, DataPaging dataPaging, CancellationToken token = default)
         {
-            var query = _context.Tasks.Where(y => y.IsCompleted == isComplete).Select(x => x).AsQueryable();
+            var query = _context.Tasks.Include(x => x.Owner).Where(y => y.IsCompleted == isComplete).Select(x => x).AsQueryable();
             return await ExecuteQuery(query, dataPaging, token);
         }
     }

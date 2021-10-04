@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TaskSample.Api.Extensions;
 using TaskSample.Api.Middlewares;
+using TaskSample.Infrastructure.DI.Bootstrapper;
 
 namespace TaskSample.Api
 {
@@ -25,6 +26,8 @@ namespace TaskSample.Api
             services.AddControllers()
                 .AddApiBehavior()
                 .AddApiValidation();
+
+            services.AddInfrastructure();
 
             services.AddSwaggerGen(c =>
             {
@@ -47,8 +50,6 @@ namespace TaskSample.Api
             app.UseRouting();
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

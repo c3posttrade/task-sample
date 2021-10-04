@@ -9,7 +9,7 @@ namespace TaskSample.Infrastructure.Services.MappingProfiles
         public DataProfile()
         {
             CreateMap<PagingModel, DataPaging>()
-                .ForMember(dest => dest.Skip, opt => opt.MapFrom(src => (src.Page - 1) * src.PageSize))
+                .ForMember(dest => dest.Skip, opt => opt.MapFrom(src => (src.PageNumber - 1) * src.PageSize))
                 .ForMember(dest => dest.Take, opt => opt.MapFrom(src => src.PageSize));
         }
     }

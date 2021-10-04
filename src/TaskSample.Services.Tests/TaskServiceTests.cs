@@ -103,7 +103,7 @@ namespace TaskSample.Infrastructure.Services.Tests
             _mockUnitOfWork.Setup(x => x.TaskRepository.GetByOwnerIdAsync(It.IsAny<Guid>(), It.IsAny<DataPaging>(), tokenSource.Token)).ReturnsAsync(result);
 
             //Act
-            var taskList = await _sut.GetByOwnerAsync(ownerId, new PagingModel { Page = 1, PageSize = 10 }, tokenSource.Token);
+            var taskList = await _sut.GetByOwnerAsync(ownerId, new PagingModel { PageNumber = 1, PageSize = 10 }, tokenSource.Token);
 
             //Assert
             Assert.IsNotNull(taskList);
@@ -122,7 +122,7 @@ namespace TaskSample.Infrastructure.Services.Tests
             _mockUnitOfWork.Setup(x => x.TaskRepository.GetByStatusAsync(isComplete, It.IsAny<DataPaging>(), tokenSource.Token)).ReturnsAsync(result);
 
             //Act
-            var taskList = await _sut.GetByStatusAsync(isComplete, new PagingModel { Page = 1, PageSize = 15 }, tokenSource.Token);
+            var taskList = await _sut.GetByStatusAsync(isComplete, new PagingModel { PageNumber = 1, PageSize = 15 }, tokenSource.Token);
 
             //Assert
             Assert.IsNotNull(taskList);

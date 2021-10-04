@@ -11,6 +11,7 @@ namespace TaskSample.Api.Controllers
 {
     [ApiController]
     [Route("/api/tasks")]
+    [Produces("application/json")]
     public class TasksController : ControllerApiBase
     {
         private readonly ITaskService _taskService;
@@ -25,13 +26,13 @@ namespace TaskSample.Api.Controllers
         public async Task<ActionResult<TaskDetailViewModel>> CreateAsync([FromBody] TaskCreateModel task, CancellationToken cancellationToken = default)
         {
             var newTask = await _taskService.CreateAsync(task, cancellationToken);
-            return CreatedAtRoute(nameof(GetAsync), new { id = newTask.Id }, newTask);
+            return Created(nameof(GetByIdAsync), new { id = newTask.Id });
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TaskDetailViewModel>> GetAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<TaskDetailViewModel>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var task = await _taskService.GetByIdAsync(id, cancellationToken);
             if (task is null)
@@ -41,18 +42,18 @@ namespace TaskSample.Api.Controllers
             return Ok(task);
         }
 
-        [HttpGet("{complete}")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PagedResult<TaskDetailViewModel>>> GetAsync(bool complete, PagingModel paging, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<PagedResult<TaskDetailViewModel>>> GetByStatusAsync([FromQuery] TaskStatusQuery statusQuery, CancellationToken cancellationToken = default)
         {
-            var tasks = await _taskService.GetByStatusAsync(complete, paging, cancellationToken);
+            var tasks = await _taskService.GetByStatusAsync(statusQuery.IsComplete, new PagingModel { PageNumber = statusQuery.PageNumber, PageSize = statusQuery.PageSize }, cancellationToken);
             return Ok(tasks);
         }
 
         [HttpGet]
         [Route("/api/owners/{ownerId}/tasks")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PagedResult<TaskDetailViewModel>>> GetAsync(Guid ownerId, PagingModel paging, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<PagedResult<TaskDetailViewModel>>> GetByOwnerAsync(Guid ownerId, [FromQuery] PagingModel paging, CancellationToken cancellationToken = default)
         {
             var tasksByOwner = await _taskService.GetByOwnerAsync(ownerId, paging, cancellationToken);
             return Ok(tasksByOwner);

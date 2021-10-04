@@ -107,6 +107,27 @@ namespace TaskSample.Infrastructure.Persistence.EF.Tests
             Assert.AreEqual(10, result.FilteredRecords.Count(x => x.IsCompleted));
         }
 
+        [Test]
+        public async Task MarkTaskCompleteAsync_UpdatesRightValues()
+        {
+            CancellationTokenSource tokenSource = new();
+            var task = new Fixture().Build<DemoTask>().With(x => x.IsCompleted, false).Create();
+            await _context.Tasks.AddAsync(task, tokenSource.Token);
+            await _context.SaveChangesAsync(tokenSource.Token);
+            var currentDateTime = DateTimeOffset.Now;
+            _dateTimeProvider.Setup(x => x.DateTimeNow).Returns(currentDateTime);
+
+            var existingTask = await _sut.TaskRepository.FindByIdAsync(task.Id, tokenSource.Token);
+            existingTask.IsCompleted = true;
+            await _sut.TaskRepository.UpdateAsync(existingTask, tokenSource.Token);
+            await _sut.SaveChangesAsync(tokenSource.Token);
+
+            existingTask = await _sut.TaskRepository.FindByIdAsync(task.Id, tokenSource.Token);
+            Assert.IsNotNull(existingTask.Updated);
+            Assert.AreEqual(currentDateTime, existingTask.Updated);
+            Assert.AreEqual(true, existingTask.IsCompleted);
+        }
+
 
     }
 }

@@ -23,7 +23,7 @@ namespace TaskSample.Services.Common.Paging
         public PagedResult(IEnumerable<T> source, int totalRecords, PagingModel paging)
         {
             TotalRecords = totalRecords;
-            Page = paging.Page;
+            Page = paging.PageNumber;
             PageSize = paging.PageSize;
             TotalPages = (int)Math.Ceiling(totalRecords / (double)paging.PageSize);
             Data = source.Take(paging.PageSize).ToList();

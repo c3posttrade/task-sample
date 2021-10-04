@@ -40,11 +40,10 @@ namespace TaskSample.API.Tests
 
             //Assert
             Assert.IsNotNull(result.Result);
-            Assert.IsInstanceOf(typeof(CreatedAtRouteResult), result.Result);
-            var routeResult = result.Result as CreatedAtRouteResult;
+            Assert.IsInstanceOf(typeof(CreatedResult), result.Result);
+            var routeResult = result.Result as CreatedResult;
             Assert.AreEqual(201, routeResult.StatusCode);
-            var outputTaskDetail = routeResult.Value as TaskDetailViewModel;
-            Assert.AreEqual(taskDetail.Id, outputTaskDetail.Id);
+            Assert.IsNotNull(routeResult.Value);
         }
 
         [Test]
@@ -56,7 +55,7 @@ namespace TaskSample.API.Tests
             _mockTaskService.Setup(x => x.GetByIdAsync(It.IsAny<Guid>(), tokenSource.Token)).ReturnsAsync(task);
 
             //Act
-            var result = await _sut.GetAsync(Guid.NewGuid(), tokenSource.Token);
+            var result = await _sut.GetByIdAsync(Guid.NewGuid(), tokenSource.Token);
 
             //Assert
             Assert.IsNotNull(result.Result);
@@ -71,7 +70,7 @@ namespace TaskSample.API.Tests
         {
             _mockTaskService.Setup(x => x.GetByIdAsync(It.IsAny<Guid>(), tokenSource.Token)).ReturnsAsync(task);
 
-            var result = await _sut.GetAsync(Guid.NewGuid(), tokenSource.Token);
+            var result = await _sut.GetByIdAsync(Guid.NewGuid(), tokenSource.Token);
 
             Assert.IsNotNull(result.Result);
             Assert.IsInstanceOf(typeof(OkObjectResult), result.Result);
@@ -88,7 +87,7 @@ namespace TaskSample.API.Tests
             var pageTaskList = new PagedResult<TaskDetailViewModel>(completedTasks, 15, 1, 10);
             _mockTaskService.Setup(x => x.GetByStatusAsync(It.IsAny<bool>(), It.IsAny<PagingModel>(), tokenSource.Token)).ReturnsAsync(pageTaskList);
 
-            var result = await _sut.GetAsync(true, new PagingModel { Page = 1, PageSize = 10 }, tokenSource.Token);
+            var result = await _sut.GetByStatusAsync(new TaskStatusQuery { IsComplete = true, PageNumber = 1, PageSize = 10 }, tokenSource.Token);
 
             Assert.IsNotNull(result.Result);
             var routeResult = result.Result as OkObjectResult;
@@ -108,7 +107,7 @@ namespace TaskSample.API.Tests
             var pageTaskList = new PagedResult<TaskDetailViewModel>(tasksByAnOwner, 15, 1, 10);
             _mockTaskService.Setup(x => x.GetByOwnerAsync(It.IsAny<Guid>(), It.IsAny<PagingModel>(), tokenSource.Token)).ReturnsAsync(pageTaskList);
 
-            var result = await _sut.GetAsync(ownerId, new PagingModel { Page = 1, PageSize = 10 }, tokenSource.Token);
+            var result = await _sut.GetByOwnerAsync(ownerId, new PagingModel { PageNumber = 1, PageSize = 10 }, tokenSource.Token);
 
             Assert.IsNotNull(result.Result);
             Assert.IsInstanceOf(typeof(OkObjectResult), result.Result);

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaskSample.Infrastructure.DI.Bootstrapper\TaskSample.Infrastructure.DI.Bootstrapper.csproj" />
     <ProjectReference Include="..\TaskSample.Services\TaskSample.Services.csproj" />
   </ItemGroup>
 

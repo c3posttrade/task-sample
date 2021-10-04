@@ -49,6 +49,7 @@ namespace TaskSample.Infrastructure.Services.Features
             demoTask.Created = _dateTimeProvider.DateTimeNow;
 
             var newTask = await _unitOfWork.TaskRepository.AddAsync(demoTask, token);
+            await _unitOfWork.SaveChangesAsync(token);
             return _mapper.Map<TaskDetailViewModel>(newTask);
         }
 
@@ -78,6 +79,7 @@ namespace TaskSample.Infrastructure.Services.Features
 
             originalTask.IsCompleted = true;
             await _unitOfWork.TaskRepository.UpdateAsync(originalTask, token);
+            await _unitOfWork.SaveChangesAsync(token);
         }
     }
 }

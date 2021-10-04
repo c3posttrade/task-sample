@@ -27,23 +27,25 @@ namespace TaskSample.Api.Middlewares
             {
                 _logger.LogError(ex.Message, ex);
 
-                if (ex is NotFoundException)
+                switch (ex)
                 {
-                    await ErrorResponse(context, ex, HttpStatusCode.NotFound);
+                    case NotFoundException:
+                        await ErrorResponse(context, ex, HttpStatusCode.NotFound);
+                        break;
+                    case ValidationException or ArgumentNullException:
+                        await ErrorResponse(context, ex, HttpStatusCode.BadRequest);
+                        break;
+                    default:
+                        await ErrorResponse(context, ex, HttpStatusCode.InternalServerError);
+                        break;
                 }
-
-                if (ex is ValidationException or ArgumentNullException)
-                {
-                    await ErrorResponse(context, ex, HttpStatusCode.BadRequest);
-                }
-
-                await ErrorResponse(context, ex, HttpStatusCode.InternalServerError);
             }
         }
 
         private static async Task ErrorResponse(HttpContext context, Exception ex, HttpStatusCode httpStatusCode)
         {
             context.Response.StatusCode = (int)httpStatusCode;
+            context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonSerializer.Serialize(new ErrorModel { Message = ex.Message }));
         }
     }
